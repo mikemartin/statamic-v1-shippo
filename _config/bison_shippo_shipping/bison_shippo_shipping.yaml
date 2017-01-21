@@ -1,0 +1,11 @@
+api_key: your_shippo_key
+
+sender_name: ""
+sender_company: ""
+sender_street1: ""
+sender_city: ""
+sender_state: ""
+sender_zip: ""
+sender_country: ""
+sender_phone: ""
+sender_email: ""
