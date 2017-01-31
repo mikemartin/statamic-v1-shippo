@@ -15,25 +15,28 @@ Calculates shipping based on selected rate.
 4. Set Bison config `shipping_method` to `shippo_shipping`
 5. Add `weight` field to product fieldset
 
-## Tag usage
+## Tags
 
-**shipping_options:**
+**Shipping Options:**
+Outputs shipping estimate options from Shippo
+
 ```
 {{ bison_shippo_shipping:shipping_options }}
   <option value="{{ value }}" {{ selected }}>{{ label }}</option>
 {{ /bison_shippo_shipping:shipping_options }}
 ```
 
-**shipping_option:**
+**Shipping Option:**
+Gets a selected value from the active shipping option
+('label', 'provider', 'servicelevel', 'price', 'value', 'object_id')
+
 ```
 {{ bison_shippo_shipping:shipping_option get="label" }}
 ```
 
-## Available variables
+**Tracking:**
+Returns tracking number and tracking link.
 
-- 'label'
-- 'provider'
-- 'servicelevel'
-- 'price'
-- 'value'
-- 'object_id'
+```
+{{ bison_shippo_shipping:tracking }}
+```

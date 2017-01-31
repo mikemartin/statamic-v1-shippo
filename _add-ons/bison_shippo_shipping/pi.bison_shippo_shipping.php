@@ -27,20 +27,21 @@ class Plugin_bison_shippo_shipping extends Plugin
 		$vars = $this->core->getRates();
 
 		$html = Parse::tagLoop($this->content, $vars);
+
 		if ($use_select) {
-			$html = "<select name=\"$name\" $attributes_string>$html</select>";
+				$html = "<select name=\"$name\" $attributes_string>$html</select>";
 		}
 		return $html;
 	}
 
 
 	/**
-	* Shipping Option
-	*
-	* Gets a selected value from the active shipping option
-	*
-	* @return string
-	*/
+	 * Shipping Option
+	 *
+	 * Gets a selected value from the active shipping option
+	 *
+	 * @return string
+	 */
 	public function shipping_option()
 	{
 		$shipping_options = $this->core->getRates();
@@ -57,11 +58,33 @@ class Plugin_bison_shippo_shipping extends Plugin
 
 		switch ($key) {
 			case 'value':
-			return $option;
-			break;
+				return $option;
+				break;
 			default:
-			return $shipping_options[$option][$key];
-			break;
+				return $shipping_options[$option][$key];
+				break;
 		}
+	}
+
+	/**
+	* Tracking
+	*
+	* Return tracking details
+	*
+	* @return array
+	**/
+	public function tracking() {
+
+		$order_details = $this->addon->api('bison')->session->get('order_details');
+		$order_items = $order_details['items'];
+		$shipment = $this->core->createShipment($order_items);
+		$selected_rate = $this->core->rateDetails('object_id');
+
+		$transaction = Shippo_Transaction::create(array(
+			'rate'=> $selected_rate,
+			'async'=> false,
+		));
+
+		return "<a href='" . $transaction['tracking_url_provider'] . "' target='_blank'>" . $transaction['tracking_number'] . "</a>";
 	}
 }
