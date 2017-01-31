@@ -25,8 +25,9 @@ Outputs shipping estimate options from Shippo
 ```
 
 **Shipping Option:**
-Gets a selected value from the active shipping option
-`label` `provider` `servicelevel` `price` `value` `object_id`
+Get the following values from the selected shipping option:
+
+`label`, `provider`, `servicelevel`, `price`, `value`, `object_id`
 
 ```
 {{ bison_shippo_shipping:shipping_option get="label" }}
