@@ -10,7 +10,8 @@ class Core_bison_shippo_shipping extends Core
 	*
 	* @return array
 	**/
-	public function getRates() {
+	public function getRates()
+	{
 		$customer = $this->addon->api('bison')->getCustomerInfo();
 		$rates_id = $customer['shipping_zip'] . date("Ym");
 
@@ -61,7 +62,6 @@ class Core_bison_shippo_shipping extends Core
 		return $vars;
 	}
 
-
 	/**
 	* Rate Details
 	*
@@ -92,7 +92,15 @@ class Core_bison_shippo_shipping extends Core
 
 	}
 
-	public function createShipment($items) {
+	/**
+	* Create Shipment
+	*
+	* Get carrier shipping rates from addresses and parcel details
+	*
+	* @return array
+	*/
+	public function createShipment($items)
+	{
 		Shippo::setApiKey($this->fetchConfig('api_key'));
 
 		$bison_config = $this->addon->api('bison')->getBisonConfig();
@@ -150,3 +158,5 @@ class Core_bison_shippo_shipping extends Core
 			return $shipment;
 		}
 	}
+
+}

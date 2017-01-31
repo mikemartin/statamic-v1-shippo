@@ -71,7 +71,7 @@ class Plugin_bison_shippo_shipping extends Plugin
 	*
 	* Return tracking details
 	*
-	* @return array
+	* @return string
 	**/
 	public function tracking() {
 
