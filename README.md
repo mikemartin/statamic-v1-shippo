@@ -1,12 +1,10 @@
 
 # Bison Shippo Shipping Rates
 
-Retrieve all available shipping rates from the Shippo API based on `from_address`, `to_address` and `parcel` weight and dimensions.
-
-Calculates shipping based on selected rate.
-
-## TODO
-- Add caching for API response
+- Get carrier shipping rates from the Shippo API using `from_address`, `to_address` and `parcel` weight and dimensions.
+- Caches rate using the current month and postal code
+- Calculates shipping based on selected rate.
+- Sends shipment to Shippo for label printing.
 
 ## Installing
 1. Copy the 'bison_shippo_shipping' folder to the `_add-ons` folder in your Statamic website.
