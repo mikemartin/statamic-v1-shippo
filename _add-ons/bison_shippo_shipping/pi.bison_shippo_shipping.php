@@ -24,24 +24,36 @@ class Plugin_bison_shippo_shipping extends Plugin
 			}
 		}
 
-		$vars = $this->core->getRates();
+		$customer = $this->addon->api('bison')->getCustomerInfo();
+		$options = $this->core->getRates();
+		$option_keys = array_keys($options);
+		$default_option = $option_keys[0];
+		$shipping_option = ($customer['shipping_option'] != '') ? $customer['shipping_option'] : $default_option;
+
+		foreach($options as $i => $option) {
+			$vars[$i] = $option;
+			$vars[$i]['value'] = $i;
+			$vars[$i]['shipping_option'] = $shipping_option;
+			$vars[$i]['selected'] = ($i == $shipping_option) ? 'selected' : '';
+		}
 
 		$html = Parse::tagLoop($this->content, $vars);
 
 		if ($use_select) {
-			$html = "<select name=\"$name\" $attributes_string>$html</select>";
+				$html = "<select name=\"$name\" $attributes_string>$html</select>";
 		}
+
 		return $html;
 	}
 
 
 	/**
-	* Shipping Option
-	*
-	* Gets a selected value from the active shipping option
-	*
-	* @return string
-	*/
+	 * Shipping Option
+	 *
+	 * Gets a selected value from the active shipping option
+	 *
+	 * @return string
+	 */
 	public function shipping_option()
 	{
 		$shipping_options = $this->core->getRates();
@@ -58,11 +70,11 @@ class Plugin_bison_shippo_shipping extends Plugin
 
 		switch ($key) {
 			case 'value':
-			return $option;
-			break;
+				return $option;
+				break;
 			default:
-			return $shipping_options[$option][$key];
-			break;
+				return $shipping_options[$option][$key];
+				break;
 		}
 	}
 
@@ -71,7 +83,7 @@ class Plugin_bison_shippo_shipping extends Plugin
 	*
 	* Return tracking details
 	*
-	* @return string
+	* @return array
 	**/
 	public function tracking() {
 
